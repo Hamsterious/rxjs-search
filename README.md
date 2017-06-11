@@ -7,8 +7,7 @@ The below APIs have been used to gather data.
 - https://www.igdb.com/api
 - https://dev.twitch.tv/docs
 - https://steamcommunity.com/dev
-- https://newsapi.org/ign-api
+- https://developers.google.com/youtube/v3/
 
 In the future (if possible)
 - Google Search
-- Youtube Search
