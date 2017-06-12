@@ -23,8 +23,12 @@ export class IndexComponent implements OnInit {
 
   // Methods
   private getAll(): void {
+    const min = Math.ceil(0);
+    const max = Math.floor(10000);
+    const offset = Math.floor(Math.random() * (max - min + 1)) + min;
+
     this.gamesService
-      .get('games/', 'cover,name', 10, 0, 'release_dates.date%3Adesc')
+      .get('games/', 'cover,name', 10, offset, 'release_dates.date%3Adesc')
       .map(x => {
         x.forEach((game: any) => {
           if (game.cover && game.cover.url) {
