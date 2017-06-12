@@ -1,0 +1,55 @@
+<div *ngIf="game">
+    <!-- name -->
+    <h1>{{ game.name }}</h1>
+
+    <!-- popularity -->
+    <div *ngIf="game.popularity">
+        <p>Rating: {{ game.popularity }}</p>
+    </div>
+
+    <!-- cover -->
+    <div *ngIf="(game.cover)?.url; else placeHolderImg">
+        <img src="{{ game.cover.url }}" />
+    </div>
+    <ng-template #placeHolderImg>
+        <img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder-300x300.png" width="90" />
+    </ng-template>
+
+    <!-- summary -->
+    <div *ngIf="game.summary">
+        <p>{{ game.summary }}</p>
+    </div>
+
+    <!-- storyline -->
+    <div *ngIf="game.storyline">
+        <p>{{ game.storyline }}</p>
+    </div>
+
+    <!-- screenshots -->
+    <div *ngIf="game.screenshots">
+        <div *ngFor="let screenshot of game.screenshots">
+            <img src="{{ screenshot.url }}" />
+        </div>
+    </div>
+
+    <!-- videos -->
+    <div *ngIf="game.videos">
+        <div *ngFor="let video of game.videos">
+            <h3>{{ video.name }}</h3>
+            <iframe frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="360" [src]="sanitizer.bypassSecurityTrustResourceUrl(video.youtube_url)"></iframe>
+        </div>
+    </div>
+
+    <h2>Links</h2>
+
+    <!-- igdb url -->
+    <a href="{{ game.url }}">{{ game.name }} on IGDB</a>
+
+    <!-- websites -->
+    <div *ngIf="game.websites">
+        <div *ngFor="let website of game.websites">
+            <a href="{{ website.url }}">{{ website.url }}</a>
+        </div>
+    </div>
+    <br />
+</div>

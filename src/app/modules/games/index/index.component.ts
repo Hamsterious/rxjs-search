@@ -1,7 +1,10 @@
+// Angular
 import { Component, OnInit } from '@angular/core';
+
+// Services
 import { GamesService } from '../../../services/games.service';
 
-
+// Component
 @Component({
   selector: 'games-index',
   templateUrl: './index.component.html',
@@ -33,10 +36,5 @@ export class IndexComponent implements OnInit {
       .subscribe((x: any) => {
         this.games = x;
       });
-  }
-
-  private logId(id: number): void {
-    this.gamesService
-      .getGameById(id).subscribe(x => console.log(x));
   }
 }

@@ -1,3 +1,4 @@
+// Angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IndexComponent } from './index/index.component';
@@ -6,17 +7,22 @@ import { HttpModule } from '@angular/http';
 
 // Custom
 import { GamesService } from '../../services/games.service';
+import { DetailsComponent } from './details/details.component';
+import { GamesRoutesModule } from './games-routes.module';
 
+// Module
 @NgModule({
   imports: [
     CommonModule,
     BrowserModule,
-    HttpModule
+    HttpModule,
+    GamesRoutesModule
   ],
   exports: [
-    IndexComponent
+    IndexComponent,
+    GamesRoutesModule
   ],
-  declarations: [IndexComponent],
+  declarations: [IndexComponent, DetailsComponent],
   providers: [GamesService]
 })
 export class GamesModule { }

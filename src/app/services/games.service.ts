@@ -17,6 +17,7 @@ export class GamesService {
   // Constructor
   constructor(private http: Http) { }
 
+  // Methods
   public get(endpoint: string, fields: string, limit: number, offset: number, order: string): Observable<any> {
     const params = `${endpoint}?fields=${fields}&limit=${limit}&offset=${offset}&order=${order}`;
 
@@ -24,9 +25,9 @@ export class GamesService {
   }
 
   public getGameById(id: number): Observable<any> {
-    return this.http.get(this.baseUrl + 'games/' + id + '?fields=*', this.getHeaderOption()).map(x => x.json());
+    const targetUrl = this.baseUrl + 'games/' + id + '?fields=*';
+    return this.http.get(targetUrl, this.getHeaderOption()).map(x => x.json());
   }
-
 
   private getHeaderOption(): RequestOptions {
     const headers = new Headers({

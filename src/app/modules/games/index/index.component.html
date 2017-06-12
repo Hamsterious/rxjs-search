@@ -4,7 +4,7 @@
 
 
 <div *ngFor="let game of games">
-    <div (click)="logId(game.id)">
+    <div [routerLink]="['details', game.id]">
         <h2>{{ game.name }}</h2>
         <div *ngIf="(game.cover)?.url; else placeHolderImg">
             <img src="{{ game.cover.url }}" />
