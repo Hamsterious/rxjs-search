@@ -36,6 +36,7 @@ export class IndexComponent implements OnInit {
   }
 
   private logId(id: number): void {
-    console.log(id);
+    this.gamesService
+      .getGameById(id).subscribe(x => console.log(x));
   }
 }

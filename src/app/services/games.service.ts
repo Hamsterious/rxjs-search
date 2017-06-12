@@ -24,7 +24,7 @@ export class GamesService {
   }
 
   public getGameById(id: number): Observable<any> {
-    return this.http.get(this.baseUrl + id, this.getHeaderOption()).map(x => x.json());
+    return this.http.get(this.baseUrl + 'games/' + id + '?fields=*', this.getHeaderOption()).map(x => x.json());
   }
 
 
