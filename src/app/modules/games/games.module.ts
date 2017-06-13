@@ -5,9 +5,14 @@ import { IndexComponent } from './index/index.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 
-// Custom
+// Services
 import { GamesService } from '../../services/games.service';
+import { YoutubeService } from '../../services/youtube.service';
+
+// Components
 import { DetailsComponent } from './details/details.component';
+
+// Modules
 import { GamesRoutesModule } from './games-routes.module';
 
 // Module
@@ -23,6 +28,6 @@ import { GamesRoutesModule } from './games-routes.module';
     GamesRoutesModule
   ],
   declarations: [IndexComponent, DetailsComponent],
-  providers: [GamesService]
+  providers: [GamesService, YoutubeService]
 })
 export class GamesModule { }

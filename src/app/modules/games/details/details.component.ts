@@ -6,9 +6,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 // Rxjs imports
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/map';
 
 // Services
 import { GamesService } from '../../../services/games.service';
+import { YoutubeService } from '../../../services/youtube.service';
 
 // Component
 @Component({
@@ -20,10 +22,12 @@ export class DetailsComponent implements OnInit {
 
   // Properties
   private game: any;
+  private youtubeResult: any;
 
   // Constructor
   constructor(
     private gamesService: GamesService,
+    private youtubeService: YoutubeService,
     private route: ActivatedRoute,
     public sanitizer: DomSanitizer
   ) { }
@@ -52,6 +56,26 @@ export class DetailsComponent implements OnInit {
       })
       .subscribe(x => {
         this.game = x[0];
+        this.searchYoutube(this.game.name);
+      });
+  }
+
+  private searchYoutube(gameName: string): void {
+    this.youtubeService
+      .searchByQuery(gameName + ' review')
+      .map((x: any) => {
+
+        x.items.forEach((video: any) => {
+          video.youtube_url = 'https://www.youtube.com/embed/' + video.id.videoId;
+        });
+
+        return x;
+      })
+      .subscribe(x => {
+        x.items = x.items.filter(video => {
+          return video.snippet.title.toLowerCase().includes(gameName.toLowerCase());
+        });
+        this.youtubeResult = x;
       });
   }
 
