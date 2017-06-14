@@ -36,13 +36,13 @@ export class DetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getGameById();
+    this.getGameById(this.getRouteParam('id'));
   }
 
   // Methods
-  private getGameById(): void {
+  private getGameById(gameId: number): void {
     this.gamesService
-      .getGameById(this.getRouteParam('id'))
+      .getGameById(gameId)
       .map(x => {
         x.forEach((game: any) => {
           if (game.cover && game.cover.url) {

@@ -14,11 +14,14 @@ export class IndexComponent implements OnInit {
 
   // Properties
   private games: any[];
+  private workingSample: any;
+
 
   // Constructor
   constructor(private gamesService: GamesService) { }
 
   ngOnInit() {
+    this.getGameById();
   }
 
   // Methods
@@ -39,6 +42,28 @@ export class IndexComponent implements OnInit {
       })
       .subscribe((x: any) => {
         this.games = x;
+      });
+  }
+
+  private getGameById(): void {
+    this.gamesService
+      .getGameById(7346)
+      .map(x => {
+        x.forEach((game: any) => {
+          if (game.cover && game.cover.url) {
+            game.cover.url = game.cover.url.replace('t_thumb/', 't_cover_big/')
+          }
+
+          if (game.videos) {
+            game.videos.forEach(video => {
+              video.youtube_url = 'https://www.youtube.com/embed/' + video.video_id;
+            });
+          }
+        });
+        return x;
+      })
+      .subscribe(x => {
+        this.workingSample = x[0];
       });
   }
 }

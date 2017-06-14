@@ -2,6 +2,18 @@
 
 <button (click)="getAll()">GET games</button>
 
+<div *ngIf="workingSample">
+    <div [routerLink]="['details', workingSample.id]">
+        <h2>{{ workingSample.name }}</h2>
+        <div *ngIf="(workingSample.cover)?.url; else placeHolderImg">
+            <img src="{{ workingSample.cover.url }}" />
+        </div>
+        <ng-template #placeHolderImg>
+            <img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder-300x300.png" width="90" />
+        </ng-template>
+    </div>
+    <br />
+</div>
 
 <div *ngFor="let game of games">
     <div [routerLink]="['details', game.id]">
