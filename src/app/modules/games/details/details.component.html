@@ -59,7 +59,7 @@
     <div class="col-6">
         <div class="row">
             <h2>Youtube videos</h2>
-            <div *ngIf="youtubeResult; else nothingYet">
+            <div *ngIf="youtubeResult; else noYoutubeResultYet">
                 <div *ngFor="let video of youtubeResult.items">
                     <h4>{{ video.snippet.title }}</h4>
                     <iframe frameborder="0" allowfullscreen="1" title="YouTube video player" width="320" height="180" [src]="sanitizer.bypassSecurityTrustResourceUrl(video.youtube_url)"></iframe>
@@ -68,12 +68,24 @@
                     <br />
                 </div>
             </div>
-            <ng-template #nothingYet>
-                <p>We found no youtube reviews so far. But we'll keep looking :)</p>
+            <ng-template #noYoutubeResultYet>
+                <p>We found no youtube reviews so far, but we'll keep looking :)</p>
             </ng-template>
         </div>
-        <div class="row">
-            <h2>Twitch streams</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <h2>Twitch streams</h2>
+        <p><em>Note short twitch commercials may happen, and that streams may contain spoilers.</em></p>
+        <br />
+        <div *ngIf="twitchResult; else noTwitchResultYet">
+            <div *ngFor="let stream of twitchResult.streams">
+                <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(stream.stream_url)" height="300" width="600" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>
+            </div>
         </div>
+        <ng-template #noYoutubeResultYet>
+            <p>We found no streams so far, but we'll keep looking :)</p>
+        </ng-template>
     </div>
 </div>

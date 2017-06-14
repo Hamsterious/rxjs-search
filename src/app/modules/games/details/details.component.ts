@@ -11,6 +11,7 @@ import 'rxjs/add/operator/map';
 // Services
 import { GamesService } from '../../../services/games.service';
 import { YoutubeService } from '../../../services/youtube.service';
+import { TwitchService } from '../../../services/twitch.service';
 
 // Component
 @Component({
@@ -23,11 +24,13 @@ export class DetailsComponent implements OnInit {
   // Properties
   private game: any;
   private youtubeResult: any;
+  private twitchResult: any;
 
   // Constructor
   constructor(
     private gamesService: GamesService,
     private youtubeService: YoutubeService,
+    private twitchService: TwitchService,
     private route: ActivatedRoute,
     public sanitizer: DomSanitizer
   ) { }
@@ -57,6 +60,7 @@ export class DetailsComponent implements OnInit {
       .subscribe(x => {
         this.game = x[0];
         this.searchYoutube(this.game.name);
+        this.searchTwitch(this.game.name);
       });
   }
 
@@ -76,6 +80,26 @@ export class DetailsComponent implements OnInit {
           return video.snippet.title.toLowerCase().includes(gameName.toLowerCase());
         });
         this.youtubeResult = x;
+      });
+  }
+
+  private searchTwitch(gameName: string): void {
+    this.twitchService
+      .searchByQuery(gameName)
+      .map((x: any) => {
+
+        x.streams.forEach(stream => {
+          stream.stream_url = `http://player.twitch.tv/?channel=${stream.channel.name}&muted=true&autoplay=false`;
+        });
+
+        return x;
+      }).subscribe(x => {
+
+        x.streams = x.streams.filter(stream => {
+          return stream.game.toLowerCase().includes(gameName.toLowerCase());
+        });
+
+        this.twitchResult = x;
       });
   }
 
